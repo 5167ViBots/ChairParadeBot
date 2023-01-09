@@ -22,6 +22,8 @@ namespace shooter
             const int PCMLightChannel = 1;
             const int PCMShooterSolenoidChannel = 0;
 
+            const float ShooterAngleSpeed = .5f;
+
 
             //Initialization
             //GameController gamePad = new GameController(UsbHostDevice.GetInstance(0));
@@ -34,7 +36,7 @@ namespace shooter
             PCMSwitch LightSwitch = new PCMSwitch(pcm, PCMLightChannel);
             PCMSolenoid ShooterSolenoid = new PCMSolenoid(pcm, PCMShooterSolenoidChannel);
             Controller gamepad = new Controller();
-            TankChassis robotChassis = new TankChassis(Motor1, Motor2, Motor3, Motor4);
+            DualMotorTankChassis robotChassis = new DualMotorTankChassis(Motor1, Motor2);
 
 
             
@@ -113,7 +115,7 @@ namespace shooter
                     ShooterSolenoid.TurnOff();
                 }
 
-                if (gamepad.LBPressed)
+                if (gamepad.StartPressed)
                 {
                     ShooterSolenoid.TurnOn();
                 }
@@ -122,6 +124,18 @@ namespace shooter
                     ShooterSolenoid.TurnOff();
                 }
 
+                if (gamepad.RBPressed)
+                {
+                    Motor3.SetSpeed(ShooterAngleSpeed);
+                }
+                else if (gamepad.LBPressed)
+                {
+                    Motor3.SetSpeed(ShooterAngleSpeed * -1);
+                }
+                else
+                {
+                    Motor3.SetSpeed(0);
+                }
 
                 robotChassis.SetSpeed(gamepad.LeftThumbStickVerticalAxisValue, gamepad.RightThumbStickHorizontalAxisValue);
 

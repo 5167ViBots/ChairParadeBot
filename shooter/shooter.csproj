@@ -38,12 +38,14 @@
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
     <Compile Include="Controller.cs" />
-    <Compile Include="TankChassis.cs" />
+    <Compile Include="QuadMotorTankChassis.cs" />
     <Compile Include="PCMSolenoid.cs" />
     <Compile Include="PCMSwitch.cs" />
     <Compile Include="PWMMotor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="DualMotorTankChassis.cs" />
+    <Compile Include="TankChassis.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CTRE, Version=4.4.0.4, Culture=neutral, processorArchitecture=MSIL">
