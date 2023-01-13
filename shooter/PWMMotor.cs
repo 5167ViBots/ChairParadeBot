@@ -75,7 +75,7 @@ namespace shooter
                     PowerSpread = NeutralValue - MaxReverse;
 
                 if (Invert)
-                    pwm.Duration = (uint)(PowerSpread * SpeedPercent) + NeutralValue;
+                    pwm.Duration = NeutralValue - (uint)(PowerSpread * SpeedPercent);// - NeutralValue;
                 else
                     pwm.Duration = NeutralValue + (uint)(PowerSpread * SpeedPercent);
             }

@@ -1,14 +1,5 @@
-﻿using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
-using System;
-using System.Threading;
-using CTRE.Phoenix;
-using CTRE.Phoenix.Controller;
-using CTRE.Phoenix.MotorControl;
-using CTRE.Phoenix.MotorControl.CAN;
+﻿using CTRE.Phoenix;
 using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
-using System.Text;
 
 namespace shooter
 {
@@ -19,10 +10,11 @@ namespace shooter
 
             //Configuration
             const int PCMCANChannel = 6;
-            const int PCMLightChannel = 1;
-            const int PCMShooterSolenoidChannel = 0;
+            const int PCMShooterSolenoidChannel = 1;
+            const int PCMHornChannel = 0;
+            const int PCMLightChannel = 2;
 
-            const float ShooterAngleSpeed = .5f;
+            const float ShooterAngleSpeed = .25f;
 
 
             //Initialization
@@ -33,6 +25,7 @@ namespace shooter
             PWMMotor Motor3 = new PWMMotor(CTRE.HERO.IO.Port3.PWM_Pin7);
             PWMMotor Motor4 = new PWMMotor(CTRE.HERO.IO.Port3.PWM_Pin8);
             UsbHostDevice.GetInstance(0).SetSelectableXInputFilter(UsbHostDevice.SelectableXInputFilter.XInputDevices);
+            PCMSwitch PCMHornSwitch = new PCMSwitch(pcm, PCMHornChannel);
             PCMSwitch LightSwitch = new PCMSwitch(pcm, PCMLightChannel);
             PCMSolenoid ShooterSolenoid = new PCMSolenoid(pcm, PCMShooterSolenoidChannel);
             Controller gamepad = new Controller();
@@ -40,9 +33,14 @@ namespace shooter
 
 
             
-            LightSwitch.TurnOn();
 
             bool Runone = true;
+            Motor2.Invert = true;
+            Motor2.MaxForward = 1666; //33% power
+            Motor2.MaxReverse = 1334;
+            Motor1.MaxForward = 1666;
+            Motor1.MaxReverse = 1334;
+
 
             /* loop forever */
             while (true)
@@ -86,35 +84,45 @@ namespace shooter
 
                 }
 
-                if (gamepad.YPressed)
+                if (gamepad.Y)
                 {
-                    if (LightSwitch.CurrentState)
-                        LightSwitch.TurnOff();
-                    else
-                        LightSwitch.TurnOn();
-                    
-                }
 
+                    ShooterSolenoid.TurnOn();
+
+                }
+                else
+                {
+                    ShooterSolenoid.TurnOff();
+                }
+                /*
                 if (gamepad.BPressed)
                 {
                     ShooterSolenoid.TurnOn();
                 }
+                
 
                 if (!gamepad.B)
                 {
                     ShooterSolenoid.TurnOff();
-                }
+                
+                */
 
                 if (gamepad.X)
                 {
-                    ShooterSolenoid.TurnOn();
-                }
-
-                if (!gamepad.X)
+                    PCMHornSwitch.TurnOn();
+                } else
                 {
-                    ShooterSolenoid.TurnOff();
+                    PCMHornSwitch.TurnOff();
                 }
-
+                if (gamepad.B)
+                {
+                    LightSwitch.TurnOn();
+                }
+                else
+                {
+                    LightSwitch.TurnOff();
+                }
+                /*
                 if (gamepad.StartPressed)
                 {
                     ShooterSolenoid.TurnOn();
@@ -122,23 +130,53 @@ namespace shooter
                 else
                 {
                     ShooterSolenoid.TurnOff();
-                }
+                }*/
 
-                if (gamepad.RBPressed)
+                /*if (gamepad.RB)
                 {
                     Motor3.SetSpeed(ShooterAngleSpeed);
                 }
-                else if (gamepad.LBPressed)
+                else if (gamepad.LB)
                 {
                     Motor3.SetSpeed(ShooterAngleSpeed * -1);
                 }
                 else
                 {
                     Motor3.SetSpeed(0);
+                }*/
+
+                float ForwardReverseSpeed;
+                if (gamepad.RightTriggerValue > 0)
+                {
+                    ForwardReverseSpeed = gamepad.RightTriggerValue;
+                }
+                else if (gamepad.LeftTriggerValue > 0)
+                {
+                    ForwardReverseSpeed = gamepad.LeftTriggerValue * -1;
+                }
+                else
+                {
+                    ForwardReverseSpeed = 0;
                 }
 
-                robotChassis.SetSpeed(gamepad.LeftThumbStickVerticalAxisValue, gamepad.RightThumbStickHorizontalAxisValue);
+                if (ForwardReverseSpeed != 0)
+                {
+                    robotChassis.SetSpeed(ForwardReverseSpeed, gamepad.LeftThumbStickHorizontalAxisValue);
+                }
 
+                if (ForwardReverseSpeed == 0 && gamepad.RightThumbStickHorizontalAxisValue != 0)
+                {
+                    //rotate
+                    robotChassis.Rotate(gamepad.RightThumbStickHorizontalAxisValue);
+                }
+                else if (ForwardReverseSpeed == 0)
+                {
+                    robotChassis.SetSpeed(0, 0);
+                }
+
+
+                //Motor1.SetSpeed(gamepad.LeftThumbStickVerticalAxisValue);
+                //Motor2.SetSpeed(gamepad.RightThumbStickVerticalAxisValue);
 
                 //Motor1.SetSpeed(((gamepad.RightTriggerValue + 1)/2));
 
