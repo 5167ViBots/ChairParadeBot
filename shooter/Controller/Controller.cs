@@ -1,7 +1,6 @@
 using CTRE.Phoenix;
 using CTRE.Phoenix.Controller;
 using Microsoft.SPOT;
-using shooter.Controller;
 using System;
 
 namespace shooter

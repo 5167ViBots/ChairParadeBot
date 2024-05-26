@@ -33,5 +33,41 @@ namespace shooter
         {
             return !c1.Equals(c2);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is ControllerState))
+                return false;
+
+            if (obj == null)
+                return false;
+
+            var item = (ControllerState)obj;
+
+            return
+                A == item.A &&
+                B == item.B &&
+                X == item.X &&
+                Y == item.Y &&
+                Start == item.Start &&
+                Select == item.Select &&
+                LeftBumper == item.LeftBumper &&
+                RightBumper == item.RightBumper &&
+                L3 == item.L3 &&
+                R3 == item.R3 &&
+                Center == item.Center &&
+                LeftStickX == item.LeftStickX &&
+                LeftStickY == item.LeftStickY &&
+                RightStickX == item.RightStickX &&
+                RightStickY == item.RightStickY &&
+                LeftTrigger == item.LeftTrigger &&
+                RightTrigger == item.RightTrigger;
+
+    }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
