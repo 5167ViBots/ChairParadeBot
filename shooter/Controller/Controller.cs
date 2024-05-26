@@ -1,6 +1,7 @@
 using CTRE.Phoenix;
 using CTRE.Phoenix.Controller;
 using Microsoft.SPOT;
+using shooter.Controller;
 using System;
 
 namespace shooter
@@ -300,5 +301,33 @@ namespace shooter
          * Axis 4 = left trigger | -1 is 0, 1 is 100%
          * Axis 5 = right trigger | -1 is 0, 1 is 100%
          */
+
+        public ControllerState GetControllerState()
+        {
+            ControllerState state = new ControllerState();
+
+            state.A = gamepad.GetButton(ButtonA);
+            state.B = gamepad.GetButton(ButtonB);
+            state.X = gamepad.GetButton(ButtonX);
+            state.Y = gamepad.GetButton(ButtonY);
+            state.LeftBumper = gamepad.GetButton(ButtonLB); ;
+            state.RightBumper = gamepad.GetButton(ButtonRB); ;
+            state.Select = gamepad.GetButton(ButtonBack); ;
+            state.Start = gamepad.GetButton(ButtonStart);
+            state.L3 = gamepad.GetButton(ButtonL3);
+            state.R3 = gamepad.GetButton(ButtonR3);
+            state.Center = gamepad.GetButton(CenterXbox);
+
+
+            state.LeftStickX= gamepad.GetAxis(HLeftTStick);
+            state.LeftStickY= gamepad.GetAxis(VLeftTStick);
+            state.RightStickX= gamepad.GetAxis(HRightTStick);
+            state.RightStickY= gamepad.GetAxis(VRightTStick);
+            state.LeftTrigger= gamepad.GetAxis(LeftTrigger);
+            state.RightTrigger= gamepad.GetAxis(RightTrigger);
+
+
+            return state;
+        }
     }
 }
