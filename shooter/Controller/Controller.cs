@@ -282,9 +282,13 @@ namespace shooter
             RightStickDeadzone = 0.1F;
             LeftTriggerDeadzone = 0.1F;
             RightTriggerDeadzone = 0.1F;
-    }
+            WatchdogStatus = true;
+        }
 
-        public bool IsConnected { get { return gamepad.GetConnectionStatus() == UsbDeviceConnection.Connected; } }
+        public bool IsConnected { get {
+                if (!WatchdogStatus)
+                    return false;
+                return gamepad.GetConnectionStatus() == UsbDeviceConnection.Connected; } }
 
         public float LeftStickDeadzone { get; set; }
         public float RightStickDeadzone { get; set; }
@@ -329,5 +333,7 @@ namespace shooter
 
             return state;
         }
+
+        public bool WatchdogStatus { get; set; } 
     }
 }

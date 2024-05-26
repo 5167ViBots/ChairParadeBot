@@ -6,9 +6,10 @@ namespace shooter
     class ControllerWatchdog
     {
         Controller _controller;
-        public ControllerWatchdog(Controller controller) { 
+        public ControllerWatchdog(Controller controller, int TimeoutDuration) { 
             _controller = controller; 
             Thread = new System.Threading.Thread(new System.Threading.ThreadStart(WatchdogLoop));
+            TimeoutMS = TimeoutDuration;
             Thread.Start();
         }
 
@@ -26,12 +27,12 @@ namespace shooter
             {
                 OldState = CurrentState;
                 OldStateDateTime = DateTime.Now;
-                //TODO: Disable Controller Failsafe
+                _controller.WatchdogStatus = false;
                 return;
             }
             if ((DateTime.Now - OldStateDateTime).Milliseconds > TimeoutMS)
             {
-                //TODO: Trigger Controller Failsafe
+                _controller.WatchdogStatus = true;
             }
         }
 
