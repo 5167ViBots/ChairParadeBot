@@ -333,6 +333,6 @@ namespace shooter
             return state;
         }
 
-        public bool WatchdogStatus { get; set; } 
+        public bool WatchdogStatus { get; set; }
     }
 }

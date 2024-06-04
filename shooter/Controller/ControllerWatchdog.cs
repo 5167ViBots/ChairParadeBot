@@ -21,18 +21,19 @@ namespace shooter
 
         private void WatchdogCheck()
         {
+            //Debug.Print("Controller Watchdog Checking");
             CurrentState = _controller.GetControllerState();
 
             if (OldState != CurrentState)
             {
                 OldState = CurrentState;
                 OldStateDateTime = DateTime.Now;
-                _controller.WatchdogStatus = false;
+                _controller.WatchdogStatus = true;
                 return;
             }
-            if ((DateTime.Now - OldStateDateTime).Milliseconds > TimeoutMS)
+            if ((DateTime.Now - OldStateDateTime).Ticks > TimeoutMS*TimeSpan.TicksPerMillisecond)
             {
-                _controller.WatchdogStatus = true;
+                _controller.WatchdogStatus = false;
             }
         }
 
@@ -50,8 +51,12 @@ namespace shooter
 
         public void WatchdogLoop()
         {
-            WatchdogCheck();
-            System.Threading.Thread.Sleep(10);
+            while (true)
+            {
+                WatchdogCheck();
+                System.Threading.Thread.Sleep(10);
+            }
+
         }
 
 
