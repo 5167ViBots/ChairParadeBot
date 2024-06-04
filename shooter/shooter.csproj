@@ -37,7 +37,9 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
-    <Compile Include="Controller.cs" />
+    <Compile Include="Controller\Controller.cs" />
+    <Compile Include="Controller\ControllerState.cs" />
+    <Compile Include="Controller\ControllerWatchdog.cs" />
     <Compile Include="QuadMotorTankChassis.cs" />
     <Compile Include="PCMSolenoid.cs" />
     <Compile Include="PCMSwitch.cs" />

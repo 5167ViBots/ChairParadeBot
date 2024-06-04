@@ -29,6 +29,7 @@ namespace shooter
             PCMSwitch LightSwitch = new PCMSwitch(pcm, PCMLightChannel);
             PCMSolenoid ShooterSolenoid = new PCMSolenoid(pcm, PCMShooterSolenoidChannel);
             Controller gamepad = new Controller();
+            ControllerWatchdog controllerWatchdog = new ControllerWatchdog(gamepad, 2000); //Treat controller as disconnected after 2 seconds of the same input
             DualMotorTankChassis robotChassis = new DualMotorTankChassis(Motor1, Motor2);
 
 
