@@ -1,3 +1,3 @@
-# TShirtLauncherRobot
+# ChairParadeBot
 
-Code to control a tshirt launching robot
+Code to control a rboot and attached recliner\
