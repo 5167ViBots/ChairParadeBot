@@ -30,17 +30,20 @@ namespace shooter
             PCMSolenoid ShooterSolenoid = new PCMSolenoid(pcm, PCMShooterSolenoidChannel);
             Controller gamepad = new Controller();
             ControllerWatchdog controllerWatchdog = new ControllerWatchdog(gamepad, 2000); //Treat controller as disconnected after 2 seconds of the same input
-            DualMotorTankChassis robotChassis = new DualMotorTankChassis(Motor1, Motor2);
+            TankChassis robotChassis = new TankChassis(new MotorGroup(Motor1, Motor2), new MotorGroup(Motor3, Motor4));
 
 
             
 
             bool Runone = true;
-            Motor2.Invert = true;
-            Motor2.MaxForward = 1666; //33% power
-            Motor2.MaxReverse = 1334;
-            Motor1.MaxForward = 1666;
-            Motor1.MaxReverse = 1334;
+
+            //Converted from PWM to VictorSPX
+            //Motor2.Invert = true;
+            //Motor2.Invert = true;
+            //Motor2.MaxForward = 1666; //33% power
+            //Motor2.MaxReverse = 1334;
+            //Motor1.MaxForward = 1666;
+            //Motor1.MaxReverse = 1334;
 
 
             /* loop forever */

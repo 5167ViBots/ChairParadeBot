@@ -92,6 +92,11 @@ namespace shooter
             }
         }
 
+        public void SetInvert(bool IsInverted)
+        {
+            this.Invert = IsInverted;
+        }
+
         public bool Invert { get; set; }
     }
 }
