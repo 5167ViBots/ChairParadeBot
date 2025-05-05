@@ -20,10 +20,10 @@ namespace shooter
             //Initialization
             //GameController gamePad = new GameController(UsbHostDevice.GetInstance(0));
             PneumaticControlModule pcm = new PneumaticControlModule(PCMCANChannel);
-            PWMMotor Motor1 = new PWMMotor(CTRE.HERO.IO.Port3.PWM_Pin4);
-            PWMMotor Motor2 = new PWMMotor(CTRE.HERO.IO.Port3.PWM_Pin6);
-            PWMMotor Motor3 = new PWMMotor(CTRE.HERO.IO.Port3.PWM_Pin7);
-            PWMMotor Motor4 = new PWMMotor(CTRE.HERO.IO.Port3.PWM_Pin8);
+            CustomVictorSPX Motor1 = new CustomVictorSPX(1);
+            CustomVictorSPX Motor2 = new CustomVictorSPX(2);
+            CustomVictorSPX Motor3 = new CustomVictorSPX(3);
+            CustomVictorSPX Motor4 = new CustomVictorSPX(4);
             UsbHostDevice.GetInstance(0).SetSelectableXInputFilter(UsbHostDevice.SelectableXInputFilter.XInputDevices);
             PCMSwitch PCMHornSwitch = new PCMSwitch(pcm, PCMHornChannel);
             PCMSwitch LightSwitch = new PCMSwitch(pcm, PCMLightChannel);

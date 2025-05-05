@@ -2,10 +2,10 @@
 {
     internal class DualMotorTankChassis : TankChassis
     {
-        PWMMotor LeftMotor;
-        PWMMotor RightMotor;
+        IMotor LeftMotor;
+        IMotor RightMotor;
 
-        public DualMotorTankChassis(PWMMotor leftMotor, PWMMotor rightMotor)
+        public DualMotorTankChassis(IMotor leftMotor, IMotor rightMotor)
         {
             LeftMotor = leftMotor;
             RightMotor = rightMotor;

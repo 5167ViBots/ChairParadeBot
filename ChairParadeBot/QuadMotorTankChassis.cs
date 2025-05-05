@@ -5,11 +5,11 @@ namespace shooter
 {
     class QuadMotorTankChassis : TankChassis
     {
-        PWMMotor LeftForward;
-        PWMMotor LeftReverse; 
-        PWMMotor RightForward;
-        PWMMotor RightReverse;
-        public QuadMotorTankChassis(PWMMotor leftForward, PWMMotor leftReverse, PWMMotor rightForward, PWMMotor rightReverse)
+        IMotor LeftForward;
+        IMotor LeftReverse;
+        IMotor RightForward;
+        IMotor RightReverse;
+        public QuadMotorTankChassis(IMotor leftForward, IMotor leftReverse, IMotor rightForward, IMotor rightReverse)
         {
             LeftForward = leftForward;
             LeftReverse = leftReverse;

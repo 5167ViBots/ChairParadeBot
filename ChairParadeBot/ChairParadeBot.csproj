@@ -40,6 +40,10 @@
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="Controller\ControllerState.cs" />
     <Compile Include="Controller\ControllerWatchdog.cs" />
+    <Compile Include="CustomVictorSPX.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IMotor.cs" />
     <Compile Include="QuadMotorTankChassis.cs" />
     <Compile Include="PCMSolenoid.cs" />
     <Compile Include="PCMSwitch.cs" />
@@ -65,5 +69,10 @@
     <Reference Include="Microsoft.SPOT.Hardware" />
     <Reference Include="Microsoft.SPOT.Hardware.PWM" />
     <Reference Include="Microsoft.SPOT.Native" />
+    <Reference Include="System" />
+    <Reference Include="System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=AMD64" />
+    <Reference Include="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
 </Project>

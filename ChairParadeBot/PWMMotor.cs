@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace shooter
 {
-    public class PWMMotor
+    public class PWMMotor : IMotor
     {
         const int Period = 50000; //period between pulses
 
